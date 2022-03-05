@@ -40,12 +40,18 @@
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(1, $username);
     $stmt->execute();
+    $profile_picture = "";
     while($row = $stmt->fetch()){
       $first_name = $row['first_name'];
       $last_name = $row['last_name'];
       $profile_picture = $row['profile_picture'];
     }
-
+    if($profile_picture == NULL){
+      $profile_picture = "./profile_pictures/blank-profile-picture.png";
+    }
+    else{
+      $profile_picture = "./profile_pictures/$profile_picture";
+    } 
     $sql = "SELECT * FROM posts WHERE STRCMP(username, ?) = 0";
     $stmt = $conn->prepare($sql);
     $stmt->bindParam(1, $username);
@@ -76,7 +82,7 @@
   <div class="container">
     <div class="row border-bottom my-3" style="height: 300px">
       <div class="col-3 d-flex align-items-center justify-content-center">
-        <img src="./profile_pictures/<?php if($profile_picture == ""){echo "blank-profile-picture.png";} else{echo $profile_picture;} ?>" alt="" style="width: 60%" class="rounded-3 border border-3">
+        <img src="<?php echo $profile_picture; ?>" alt="" style="width: 60%" class="rounded-3 border border-3">
       </div>
       <div class="col-5 d-flex align-items-center">
         <div class="container">
@@ -142,7 +148,7 @@
                   <p class="fw-bold m-0">'.$username.'</p>
                 </div>
               </a>
-              <div id="post_'.$post_no.'" class="carousel slide mx-auto mt-5" width="60%" data-bs-ride="carousel">
+              <div id="post_'.$post_no.'" class="carousel slide mx-auto" width="60%" data-bs-ride="carousel">
                 <div class="carousel-indicators">';
         if($photo_1 != "" && $photo_1 != NULL)
           echo '  <button type="button" data-bs-target="#carouselExampleIndicators" data-bs-slide-to="0" class="active" aria-current="true" aria-labl="Slide 1"></button>';

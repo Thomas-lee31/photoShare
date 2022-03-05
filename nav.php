@@ -12,6 +12,15 @@
           
         </li>
         <li class="nav-item d-flex align-items-center">
+          <?php
+           $profile_picture = $_SESSION['profile_picture'];
+           if($profile_picture == NULL || $profile_picture == ""){
+            $profile_picture = "./profile_pictures/blank-profile-picture.png";
+          }
+          else{
+            $profile_picture = "./profile_pictures/$profile_picture";
+          }  
+          ?>
           <img role="button" data-bs-toggle="modal" data-bs-target="#exampleModal" src="./web_pictures/upload_picture_icon.png" alt="" width="30">
           
           <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
@@ -42,7 +51,7 @@
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-            <img src="./profile_pictures/blank-profile-picture.png" alt="" class="rounded border border-1" width="28">
+            <img src="<?php echo $profile_picture ?>" alt="" class="rounded border border-1" height="30">
           </a>
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             <li><a class="dropdown-item" href="./profile.php">Profile</a></li>

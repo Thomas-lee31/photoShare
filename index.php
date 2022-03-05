@@ -2,15 +2,16 @@
 <html lang="en">
 
   <head>
+    <?php session_start(); ?>
     <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Bootstrap CSS -->
-  <link href="./node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
-  
-  <!-- Bootstrap JS -->
-  <script src="./node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <!-- Bootstrap CSS -->
+    <link href="./node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    
+    <!-- Bootstrap JS -->
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.js"></script>
 
     <title>Home</title>
   </head>
