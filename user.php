@@ -2,17 +2,18 @@
 <html lang="en">
 
   <head>
+    <?php session_start(); ?>
     <!-- Required meta tags -->
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-  <!-- Bootstrap CSS -->
-  <link href="./node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
-  
-  <!-- Bootstrap JS -->
-  <script src="./node_modules/bootstrap/dist/js/bootstrap.js"></script>
+    <!-- Bootstrap CSS -->
+    <link href="./node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+    
+    <!-- Bootstrap JS -->
+    <script src="./node_modules/bootstrap/dist/js/bootstrap.js"></script>
 
-    <title><?php session_start(); echo $_SESSION['first_name'].' '.$_SESSION['last_name'].' (@'.$_SESSION['username'].')'; ?></title>
+    <title><?php $_GET['username']; ?></title>
   </head>
 
 <body style="background-color: rgb(248, 248, 248)">
@@ -192,6 +193,7 @@
                   <span class="visually-hidden">Next</span>
                 </button>
               </div>
+              
               <div class="bg-white px-3 py-2">
                 <p class="my-1">'.$message.'</p>
                 <span style="font-size: 10px">'.$post_date.'<span>
