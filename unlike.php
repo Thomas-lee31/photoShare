@@ -12,6 +12,21 @@
   $username = $_SESSION['username'];
   $sql = "DELETE FROM post_likes WHERE STRCMP(username, '$username') = 0 AND post_id = $post_id";
   $conn->exec($sql);
-  header("Location: ./#post$post_id");
-  exit();
+  if($_POST['from'] == 'home'){
+    header("Location: ./#post$post_id");
+    exit();
+  }
+  else if($_POST['from'] == 'profile'){
+    header("Location: ./profile.php#post$post_id");
+    exit();
+  }
+  else if($_POST['from'] == 'liked'){
+    header("Location: ./liked_posts.php");
+    exit();
+  }
+  else{
+    $username = $_POST['from'];
+    header("Location: ./user.php?username=$username#post$post_id");
+    exit();
+  }
 ?>

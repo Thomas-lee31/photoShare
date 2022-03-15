@@ -13,7 +13,7 @@
     <!-- Bootstrap JS -->
     <script src="./node_modules/bootstrap/dist/js/bootstrap.js"></script>
 
-    <title>Home</title>
+    <title>Liked posts</title>
   </head>
 
 <body class="bg-light">
@@ -33,7 +33,6 @@
       $username = $_SESSION['username'];
 
       $sql = "SELECT 
-                followers.username,
                 posts.post_id,
                 posts.photo_1,
                 posts.photo_2,
@@ -45,10 +44,10 @@
                 users.profile_picture,
                 users.username
               FROM 
-                followers 
-                INNER JOIN posts ON followers.username = posts.username
-                INNER JOIN users ON users.username = posts.username
-              WHERE STRCMP(followers.follower, ?) = 0
+                posts 
+                INNER JOIN post_likes ON post_likes.post_id = posts.post_id
+                INNER JOIN users ON posts.username = users.username
+              WHERE STRCMP(post_likes.username, ?) = 0
               ORDER BY post_date DESC";
       $stmt = $conn->prepare($sql);
       $stmt->bindParam(1, $username);
@@ -84,12 +83,12 @@
             $liked = 1;
           }
         }
-        $from = 'home';
+
+        $from = "liked";
 
         require("select_post_comments.php");
-
-        require("post.php");
         
+        require("post.php");
       }
     ?>
     </div>

@@ -46,30 +46,5 @@
           </div>
       </div>
     </div>
-    <img type="button" class="btn p-0" data-bs-toggle="modal" data-bs-target="#exampleModal" src="./web_pictures/upload_picture_icon.png" alt="" width="30">
-              
-              <div class="modal fade" id="exampleModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered">
-                  <div class="modal-content">
-                    <div class="modal-header text-center">
-                      <h5 class="modal-title" id="exampleModalLabel">Create new post</h5>
-                      <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body">
-                      <form method="post" action="./upload_handler.php">
-                        <img src="./web_pictures/photos_icon.png" width="30%">
-                        <div class="mb-3">
-                          <label for="formFileMultiple" class="form-label">Upload photos here</label>
-                          <input class="form-control" type="file" id="formFileMultiple" multiple>
-                        </div>
-                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                        <input type="submit" class="btn btn-primary" value="Post">
-                      </form>
-                    </div>
-                    <div class="modal-footer">
-                    </div>
-                  </div>
-                </div>
-              </div>
   </body>
 </html>

@@ -1,20 +1,19 @@
 <!DOCTYPE html>
 <html lang="en">
 
-  <head>
-    <!-- Required meta tags -->
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
+<head>
+  <!-- Required meta tags -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap CSS -->
-    <link href="./css/bootstrap.css" rel="stylesheet">
+  <!-- Bootstrap CSS -->
+  <link href="./node_modules/bootstrap/dist/css/bootstrap.css" rel="stylesheet">
+  
+  <!-- Bootstrap JS -->
+  <script src="./node_modules/bootstrap/dist/js/bootstrap.js"></script>
 
-    <!-- Bootstrap JS -->
-    <script src="./js/bootstrap.js"></script>
-
-    <title>Login</title>
-  </head>
-
+  <title>Sign up</title>
+</head>
   <body>
     <div class="container mx-auto">
       <div style="width: 30%" class="border border-1 mt-5 bg-white mx-auto">
@@ -23,7 +22,7 @@
         </div>
         <form action="./sign_up_handler.php" method="post" style="width: 75%" class="mx-auto">
           <div class="form-floating mb-1">
-            <input type="text" class="form-control" name="username" required placeholder="username">
+            <input type="text" class="form-control" name="username" required placeholder="username" autofocus>
             <label class="form-label">Username</label>
             <?php if(isset($_GET['error']) && $_GET['error'] == 1) echo '<p class="text-danger">This username is already taken!</p>'?>
           </div>
@@ -55,11 +54,8 @@
               echo '<p class="error">Username, email, or password is incorrect</p>';
             }
           ?>
-          <button type="submit" class="btn btn-primary mb-3" style="width: 100%">Submit</button>
+          <button type="submit" class="btn btn-primary mb-3" style="width: 100%">Sign up</button>
         </form>
-      </div>
-      <div style="width: 30%" class="border border-1 mt-3 bg-white text-center mx-auto">
-        <p class="my-3 fs-6">Don't have an account? <a href="sign_up.php" class="link-primary text-decoration-none">Sign up</a></p>
       </div>
     </div>
 

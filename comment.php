@@ -10,7 +10,8 @@
   session_start();
   $post_id = $_POST['post_id'];
   $username = $_SESSION['username'];
-  $sql = "INSERT INTO post_likes (post_id, username) VALUES ('$post_id', '$username')";
+  $comment = $_POST['comment'];
+  $sql = "INSERT INTO post_comments (comment, post_id, username) VALUES ('$comment', '$post_id', '$username')";
   $conn->exec($sql);
   if($_POST['from'] == 'home'){
     header("Location: ./#post$post_id");
