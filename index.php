@@ -22,14 +22,7 @@
     <div class="row">
     <div class="col-8">
     <?php
-      try {
-        $conn = new PDO("mysql:host=localhost;dbname=photo_sharing_app", 'root', '');
-        //echo "Connected to database";
-        // set the PDO error mode to exception
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      } catch(PDOException $e) {
-        echo "Connection failed: " . $e->getMessage();
-      }
+      require("connect_db.php");
       $username = $_SESSION['username'];
 
       $sql = "SELECT 
@@ -71,22 +64,13 @@
           $profile_picture = "./profile_pictures/$profile_picture";
         }
 
-        // select post likes
-        $sql1 = "SELECT * FROM post_likes WHERE post_id = ?";
-        $stmt1 = $conn->prepare($sql1);
-        $stmt1->bindParam(1, $post_id);
-        $stmt1->execute();
-        $likes_cnt = 0;
-        $liked = 0;
-        while($row1 = $stmt1->fetch()){
-          $likes_cnt++;
-          if($row1['username'] == $_SESSION['username']){
-            $liked = 1;
-          }
-        }
+        require("select_post_likes.php");
+
         $from = 'home';
 
         require("select_post_comments.php");
+
+        $_SESSION['previous'] = "";
 
         require("post.php");
         

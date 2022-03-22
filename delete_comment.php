@@ -4,7 +4,7 @@ session_start();
 
 $username = $_SESSION['username'];
 
-$comment_id = $_GET['comment_id'];
+$comment_id = $_POST['comment_id'];
 
 try {
   $conn = new PDO("mysql:host=localhost;dbname=photo_sharing_app", 'root', '');

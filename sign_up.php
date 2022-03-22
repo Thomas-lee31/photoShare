@@ -58,14 +58,5 @@
         </form>
       </div>
     </div>
-
-    <div class="">
-      <form action="./sign_up_handler.php" method="post">
-        
-      </form>
-    </div>
-    
-    
-    
   </body>
 </html>

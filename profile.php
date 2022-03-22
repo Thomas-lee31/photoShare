@@ -135,7 +135,6 @@
                         $stmt->bindParam(1, $username);
                         $stmt->execute();
                         while ($row = $stmt->fetch()) {
-                          //var_dump($row);
                           $follower = $row['follower'];
                           $first_name = $row['first_name'];
                           $last_name = $row['last_name'];
@@ -270,22 +269,26 @@
         $photo_5 = $row['photo_5'];
         $post_user = $row['username'];
         $post_date = $row['post_date'];
-        $sql1 = "SELECT * FROM post_likes WHERE post_id = ?";
-        $stmt1 = $conn->prepare($sql1);
-        $stmt1->bindParam(1, $post_id);
-        $stmt1->execute();
-        $likes_cnt = 0;
-        $liked = 0;
-        while($row1 = $stmt1->fetch()){
-          $likes_cnt++;
-          if($row1['username'] == $_SESSION['username']){
-            $liked = 1;
-          }
-        }
+        // $sql1 = "SELECT * FROM post_likes WHERE post_id = ?";
+        // $stmt1 = $conn->prepare($sql1);
+        // $stmt1->bindParam(1, $post_id);
+        // $stmt1->execute();
+        // $likes_cnt = 0;
+        // $liked = 0;
+        // while($row1 = $stmt1->fetch()){
+        //   $likes_cnt++;
+        //   if($row1['username'] == $_SESSION['username']){
+        //     $liked = 1;
+        //   }
+        // }
+
+        require("select_post_likes.php");
 
         $from = "profile";
 
         require("select_post_comments.php");
+
+        $_SESSION['previous'] = "profile.php";
 
         require("post.php");
         

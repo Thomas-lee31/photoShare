@@ -3,6 +3,7 @@ $sql1 = "SELECT
           post_comments.username,
           post_comments.comment,
           post_comments.comment_id,
+          post_comments.comment_date,
           users.profile_picture
         FROM post_comments 
           INNER JOIN users ON users.username = post_comments.username
