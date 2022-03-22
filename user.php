@@ -134,6 +134,7 @@
       $stmt->bindParam(1, $username);
       $stmt->execute();
       while($row = $stmt->fetch()){
+        $post_user = $row['username'];
         $message = $row['message'];
         $post_id = $row['post_id'];
         $photo_1 = $row['photo_1'];
@@ -142,19 +143,7 @@
         $photo_4 = $row['photo_4'];
         $photo_5 = $row['photo_5'];
         $post_date = $row['post_date'];
-        $sql1 = "SELECT * FROM post_likes WHERE post_id = ?";
-        $stmt1 = $conn->prepare($sql1);
-        $stmt1->bindParam(1, $post_id);
-        $stmt1->execute();
-        $likes_cnt = 0;
-        $liked = 0;
-        while($row1 = $stmt1->fetch()){
-          $likes_cnt++;
-          if($row1['username'] == $_SESSION['username']){
-            $liked = 1;
-          }
-        }
-        $post_user = $username;
+        require("select_post_likes.php");
         $from = "user";
         
         require("select_post_comments.php");

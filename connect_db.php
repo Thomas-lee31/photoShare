@@ -4,7 +4,7 @@
 $username = 'bdf329d56235af';
 $pass = '9ed6df24';
 $hostname = 'us-cdbr-east-05.cleardb.net';
-$database = 'heroku_a97ede79aabb08e'
+$database = 'heroku_a97ede79aabb08e';
 try {
   $conn = new PDO("mysql:host=$hostname;dbname=$database", $username, $pass);
   //echo "Connected to database";
