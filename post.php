@@ -1,12 +1,12 @@
-      <div class="border mx-auto mt-5 bg-white" id="post'.$post_id.'">
+      <div class="border mx-auto mt-5 bg-white" id="post<?php echo $post_id; ?>">
         <div class="px-3 py-2 d-flex align-items-center">
-          <a href="./user.php?username='.$post_user.'" class="text-decoration-none text-body">
-            <img src="'.$profile_picture.'" style="width: 30px" class="rounded-3 border me-2">
-            <b>'.$post_user.'</b>
+          <a href="./user.php?username=<?php echo $post_user; ?>" class="text-decoration-none text-body">
+            <img src="<?php echo $profile_picture; ?>" style="width: 30px" class="rounded-3 border me-2">
+            <b><?php echo $post_user; ?></b>
           </a>
         </div>
 
-      <div id="post_'.$post_id.'" class="carousel slide" width="60%" data-bs-ride="carousel">
+      <div id="post_<?php echo $post_id; ?>" class="carousel slide" width="60%" data-bs-ride="carousel">
         <div class="carousel-indicators">
 <?php if($photo_1 != "" && $photo_1 != NULL): ?>
           <button type="button" data-bs-target="#post_<?php echo $post_id; ?>" data-bs-slide-to="0" class="active" aria-current="true" aria-labl="Slide 1"></button>
@@ -51,11 +51,11 @@
           </div>
 <?php endif; ?>
         </div>
-        <button class="carousel-control-prev" type="button" data-bs-target="#post_'.$post_id.'" data-bs-slide="prev">
+        <button class="carousel-control-prev" type="button" data-bs-target="#post_<?php echo $post_id; ?>" data-bs-slide="prev">
           <span class="carousel-control-prev-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Previous</span>
         </button>
-        <button class="carousel-control-next" type="button" data-bs-target="#post_'.$post_id.'" data-bs-slide="next">
+        <button class="carousel-control-next" type="button" data-bs-target="#post_<?php echo $post_id; ?>" data-bs-slide="next">
           <span class="carousel-control-next-icon" aria-hidden="true"></span>
           <span class="visually-hidden">Next</span>
         </button>
@@ -63,20 +63,20 @@
       <div class="bg-white px-3 pt-3 pb-1 d-flex justify-content-start align-items-center">
 <?php if(!$liked): ?>
         <form method="post" action="./like.php">
-          <input type="hidden" name="from" value="'.$from.'">
-          <input type="hidden" name="post_id" value="'.$post_id.'">
+          <input type="hidden" name="from" value="<?php echo $from; ?>">
+          <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
           <input type="submit" class="bg-white rounded-pill" name="like" value="Like">
         </form>
 <?php else: ?>
         <form method="post" action="./unlike.php">
-          <input type="hidden" name="from" value="'.$from.'">
-          <input type="hidden" name="post_id" value="'.$post_id.'">
+          <input type="hidden" name="from" value="<?php echo $from; ?>">
+          <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
           <input type="submit" class="bg-white rounded-pill" value="Unlike">
         </form>
 <?php endif; ?>
-        <span class="ms-2" data-bs-toggle="modal" data-bs-target="#likes'.$post_id.'" role="button">'.count($like_users).' likes</span>
+        <span class="ms-2" data-bs-toggle="modal" data-bs-target="#likes<?php echo $post_id; ?>" role="button"><?php echo count($like_users); ?> likes</span>
 
-        <div class="modal fade" id="likes'.$post_id.'" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal fade" id="likes<?php echo $post_id; ?>" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
               <div class="modal-header">
@@ -96,24 +96,23 @@
   
                 <div class="d-flex flex-row">
                   <div class="d-flex align-items-center">    
-                    <img src="'.$like_profile.'" style="width: 30px" class="rounded-3 border me-2">
+                    <img src="<?php echo $like_profile; ?>" style="width: 30px" class="rounded-3 border me-2">
                   </div>
                   <div class="d-flex align-items-center">
-                    <b>'.$like_user.'</b>
+                    <b><?php echo $like_user; ?></b>
                   </div>
                 </div>
 <?php endforeach; ?>
-<?php
- echo '       </div>
+              </div>
             </div>
           </div>
         </div>
       </div>
       <div class="bg-white px-3 pb-2 border-bottom">
-        <p class="my-1">'.$message.'</p>
-        <span data-bs-toggle="modal" data-bs-target="#comments'.$post_id.'" role="button">View '.$comment_cnt.' comments<span><br>
+        <p class="my-1"><?php echo $message; ?></p>
+        <span data-bs-toggle="modal" data-bs-target="#comments<?php echo $post_id; ?>" role="button">View <?php echo $comment_cnt; ?> comments<span><br>
 
-        <div class="modal fade" id="comments'.$post_id.'" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+        <div class="modal fade" id="comments<?php echo $post_id; ?>" tabindex="-1" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
           <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable">
             <div class="modal-content">
               <div class="modal-header">
@@ -121,7 +120,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
               <div class="modal-body">';
-foreach($comments as $c){
+<?php foreach($comments as $c):
   $comment_user = $c['username'];
   $comment_profile = $c['profile_picture'];
   $comment = $c['comment'];
@@ -132,15 +131,14 @@ foreach($comments as $c){
   }
   else{
     $comment_profile = "./profile_pictures/$comment_profile";
-  }
-  echo '    
+  }?>
                 <div class="d-flex flex-row">
                   <div class="d-flex align-items-center">    
-                    <img src="'.$comment_profile.'" style="width: 30px" class="rounded-3 border me-2">
+                    <img src="<?php echo $comment_profile; ?>" style="width: 30px" class="rounded-3 border me-2">
                   </div>
                   <div>
-                    <b>'.$comment_user.'</b><br>'
-                    .$comment.
+                    <b><?php echo $comment_user; ?></b><br>'
+                    <?php echo $comment; ?>
                   '</div>'; 
   ?>
   <?php if($comment_user == $_SESSION['username']): ?>
@@ -161,26 +159,23 @@ foreach($comments as $c){
                   </div>
   <?php endif; ?>
 
-  <?php
-  echo '        </div>';
-}
+                </div>
+<?php endforeach; ?>
                 
-  echo '       </div>
+              </div>
             </div>
           </div>
         </div>
-        <span style="font-size: 10px">'.$post_date.'<span>
+        <span style="font-size: 10px"><?php echo $post_date; ?><span>
       </div>
       <div class="bg-white px-3 py-2 d-flex justify-content-start align-items-center">
         <form method="post" action="./comment.php" class="w-100">
           <div class="d-flex">
             <input type="hidden" name="from" value="home">
-            <input type="hidden" name="post_id" value="'.$post_id.'">
+            <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
             <input type="text" class="form-control border-0 me-2" id="floatingInput" placeholder="Add a comment..." name="comment" required>
             <button type="submit" class="btn btn-outline-primary">Post</button>
           </div>
         </form>
       </div>
-    </div>';
-
-?>
+    </div>
