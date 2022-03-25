@@ -32,22 +32,22 @@
 <?php endif; ?>
 <?php if($photo_2 != "" && $photo_2 != NULL): ?>
           <div class="carousel-item">
-            <img src="./post_pictures/<?php echo $photo_1; ?>" class="d-block w-100" alt="...">
+            <img src="./post_pictures/<?php echo $photo_2; ?>" class="d-block w-100" alt="...">
           </div>
 <?php endif; ?>
 <?php if($photo_3 != "" && $photo_3 != NULL): ?>
           <div class="carousel-item">
-            <img src="./post_pictures/<?php echo $photo_1; ?>" class="d-block w-100" alt="...">
+            <img src="./post_pictures/<?php echo $photo_3; ?>" class="d-block w-100" alt="...">
           </div>
 <?php endif; ?>
 <?php if($photo_4 != "" && $photo_4 != NULL): ?>
           <div class="carousel-item">
-            <img src="./post_pictures/<?php echo $photo_1; ?>" class="d-block w-100" alt="...">
+            <img src="./post_pictures/<?php echo $photo_4; ?>" class="d-block w-100" alt="...">
           </div>
 <?php endif; ?>
 <?php if($photo_5 != "" && $photo_5 != NULL): ?>
           <div class="carousel-item">
-            <img src="./post_pictures/<?php echo $photo_1; ?>" class="d-block w-100" alt="...">
+            <img src="./post_pictures/<?php echo $photo_5; ?>" class="d-block w-100" alt="...">
           </div>
 <?php endif; ?>
         </div>

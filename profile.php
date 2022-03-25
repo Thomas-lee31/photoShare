@@ -120,7 +120,7 @@
                       $stmt = $conn->prepare($sql);
                       $stmt->bindParam(1, $username);
                       $stmt->execute();
-                      while ($row = $stmt->fetch()) {
+                      while ($row = $stmt->fetch()):
                         $follower = $row['follower'];
                         $first_name = $row['first_name'];
                         $last_name = $row['last_name'];
@@ -130,32 +130,31 @@
                         }
                         else{
                           $follower_picture = "./profile_pictures/$follower_picture";
-                        }
-                        echo '<a href="user.php?username='.$follower.'" class="text-decoration-none">
-                                <div class="mt-3 border-top border-bottom py-2">
-                                  <div class="row justify-content-start">
-                                    <div class="col-2 d-flex align-items-center justify-content-center">
-                                      <img src="'.$follower_picture.'" alt="" style="width: 40px" class="rounded-3 border border-3">
-                                    </div>
-                                    <div class="col-10 d-flex align-items-center p-0">
-                                      <div class="d-flex align-items-center">
-                                        <div class="me-5">
-                                          <p class="text-body m-0">'.$follower.'</p>
-                                          <p class="text-secondary me-5 mb-0">'.$first_name.' '.$last_name.'</p>
-                                        </div>
-                                        <div class="ms-5">
-                                          <form method="get" action="remove_follower.php" class="ms-5">
-                                            <input type="hidden" name="username" value="'.$follower.'">
-                                            <input class="btn btn-outline-secondary btn-sm ms-5" type="submit" value="Remove">
-                                          </form>
-                                        </div>
-                                      </div>
-                                    </div>
+                        }?>
+                        <a href="user.php?username='.$follower.'" class="text-decoration-none">
+                          <div class="mt-3 border-top border-bottom py-2">
+                            <div class="row justify-content-start">
+                              <div class="col-2 d-flex align-items-center justify-content-center">
+                                <img src="'.$follower_picture.'" alt="" style="width: 40px" class="rounded-3 border border-3">
+                              </div>
+                              <div class="col-10 d-flex align-items-center p-0">
+                                <div class="d-flex align-items-center">
+                                  <div class="me-5">
+                                    <p class="text-body m-0">'.$follower.'</p>
+                                    <p class="text-secondary me-5 mb-0">'.$first_name.' '.$last_name.'</p>
+                                  </div>
+                                  <div class="ms-5">
+                                    <form method="get" action="remove_follower.php" class="ms-5">
+                                      <input type="hidden" name="username" value="'.$follower.'">
+                                      <input class="btn btn-outline-secondary btn-sm ms-5" type="submit" value="Remove">
+                                    </form>
                                   </div>
                                 </div>
-                              </a>';
-                      }
-                    ?>
+                              </div>
+                            </div>
+                          </div>
+                        </a>';
+                      <?php endwhile; ?>
                     </div>
                   </div>
                 </div>
