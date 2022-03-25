@@ -19,43 +19,36 @@
 <body class="bg-light">
   <?php require('nav.php'); ?>
   <?php
-    try {
-        $conn = new PDO("mysql:host=localhost;dbname=photo_sharing_app", 'root', '');
-        //echo "Connected to database";
-        // set the PDO error mode to exception
-        $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      } catch(PDOException $e) {
-        echo "Connection failed: " . $e->getMessage();
-      }
+    require("connect_db.php");
       
-      $username = $_SESSION['username'];
-      $sql = "SELECT * FROM posts
-              WHERE STRCMP(username, ?) = 0
-              ORDER BY post_date DESC";
-      $stmt = $conn->prepare($sql);
-      $stmt->bindParam(1, $username);
-      $stmt->execute();
-      $postcnt = 0;
-      while($row = $stmt->fetch()){
-        $postcnt++;
-      }
-      $followed = 0;
-      $followers = 0;
-      $following = 0;
-      $stmt = $conn->query("SELECT * FROM followers");
-      while ($row = $stmt->fetch()) {
-          $user = $row['username'];
-          $follower = $row['follower'];
-          if($user == $username && $follower == $_SESSION['username']){
-            $followed = 1;
-          }
-          if($user == $username){
-            $followers++;
-          }
-          if($follower == $username){
-            $following++;
-          }
-      }
+    $username = $_SESSION['username'];
+    $sql = "SELECT * FROM posts
+            WHERE STRCMP(username, ?) = 0
+            ORDER BY post_date DESC";
+    $stmt = $conn->prepare($sql);
+    $stmt->bindParam(1, $username);
+    $stmt->execute();
+    $postcnt = 0;
+    while($row = $stmt->fetch()){
+      $postcnt++;
+    }
+    $followed = 0;
+    $followers = 0;
+    $following = 0;
+    $stmt = $conn->query("SELECT * FROM followers");
+    while ($row = $stmt->fetch()) {
+        $user = $row['username'];
+        $follower = $row['follower'];
+        if($user == $username && $follower == $_SESSION['username']){
+          $followed = 1;
+        }
+        if($user == $username){
+          $followers++;
+        }
+        if($follower == $username){
+          $following++;
+        }
+    }
   ?>
   <?php
     $profile_picture = $_SESSION['profile_picture'];
@@ -120,55 +113,48 @@
                     </div>
                     <div class="modal-body">
                     <?php
-                      try {
-                          $conn = new PDO("mysql:host=localhost;dbname=photo_sharing_app", 'root', '');
-                          //echo "Connected to database";
-                          // set the PDO error mode to exception
-                          $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                        } catch(PDOException $e) {
-                          echo "Connection failed: " . $e->getMessage();
+                      require("connect_db.php");
+                      $sql = "SELECT followers.username, followers.follower, users.username, users.first_name, users.last_name, users.profile_picture 
+                              FROM followers LEFT JOIN users ON followers.follower = users.username
+                              WHERE followers.username LIKE ?";
+                      $stmt = $conn->prepare($sql);
+                      $stmt->bindParam(1, $username);
+                      $stmt->execute();
+                      while ($row = $stmt->fetch()) {
+                        $follower = $row['follower'];
+                        $first_name = $row['first_name'];
+                        $last_name = $row['last_name'];
+                        $follower_picture = $row['profile_picture'];
+                        if($follower_picture == NULL || $follower_picture == ""){
+                          $follower_picture = "./profile_pictures/blank-profile-picture.png";
                         }
-                        $sql = "SELECT followers.username, followers.follower, users.username, users.first_name, users.last_name, users.profile_picture 
-                                FROM followers LEFT JOIN users ON followers.follower = users.username
-                                WHERE followers.username LIKE ?";
-                        $stmt = $conn->prepare($sql);
-                        $stmt->bindParam(1, $username);
-                        $stmt->execute();
-                        while ($row = $stmt->fetch()) {
-                          $follower = $row['follower'];
-                          $first_name = $row['first_name'];
-                          $last_name = $row['last_name'];
-                          $follower_picture = $row['profile_picture'];
-                          if($follower_picture == NULL || $follower_picture == ""){
-                            $follower_picture = "./profile_pictures/blank-profile-picture.png";
-                          }
-                          else{
-                            $follower_picture = "./profile_pictures/$follower_picture";
-                          }
-                          echo '<a href="user.php?username='.$follower.'" class="text-decoration-none">
-                                  <div class="mt-3 border-top border-bottom py-2">
-                                    <div class="row justify-content-start">
-                                      <div class="col-2 d-flex align-items-center justify-content-center">
-                                        <img src="'.$follower_picture.'" alt="" style="width: 40px" class="rounded-3 border border-3">
-                                      </div>
-                                      <div class="col-10 d-flex align-items-center p-0">
-                                        <div class="d-flex align-items-center">
-                                          <div class="me-5">
-                                            <p class="text-body m-0">'.$follower.'</p>
-                                            <p class="text-secondary me-5 mb-0">'.$first_name.' '.$last_name.'</p>
-                                          </div>
-                                          <div class="ms-5">
-                                            <form method="get" action="remove_follower.php" class="ms-5">
-                                              <input type="hidden" name="username" value="'.$follower.'">
-                                              <input class="btn btn-outline-secondary btn-sm ms-5" type="submit" value="Remove">
-                                            </form>
-                                          </div>
+                        else{
+                          $follower_picture = "./profile_pictures/$follower_picture";
+                        }
+                        echo '<a href="user.php?username='.$follower.'" class="text-decoration-none">
+                                <div class="mt-3 border-top border-bottom py-2">
+                                  <div class="row justify-content-start">
+                                    <div class="col-2 d-flex align-items-center justify-content-center">
+                                      <img src="'.$follower_picture.'" alt="" style="width: 40px" class="rounded-3 border border-3">
+                                    </div>
+                                    <div class="col-10 d-flex align-items-center p-0">
+                                      <div class="d-flex align-items-center">
+                                        <div class="me-5">
+                                          <p class="text-body m-0">'.$follower.'</p>
+                                          <p class="text-secondary me-5 mb-0">'.$first_name.' '.$last_name.'</p>
+                                        </div>
+                                        <div class="ms-5">
+                                          <form method="get" action="remove_follower.php" class="ms-5">
+                                            <input type="hidden" name="username" value="'.$follower.'">
+                                            <input class="btn btn-outline-secondary btn-sm ms-5" type="submit" value="Remove">
+                                          </form>
                                         </div>
                                       </div>
                                     </div>
                                   </div>
-                                </a>';
-                        }
+                                </div>
+                              </a>';
+                      }
                     ?>
                     </div>
                   </div>
@@ -188,14 +174,7 @@
                     </div>
                     <div class="modal-body">
                     <?php
-                      try {
-                          $conn = new PDO("mysql:host=localhost;dbname=photo_sharing_app", 'root', '');
-                          //echo "Connected to database";
-                          // set the PDO error mode to exception
-                          $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-                        } catch(PDOException $e) {
-                          echo "Connection failed: " . $e->getMessage();
-                        }
+                        require("connect_db.php");
                         $sql = "SELECT followers.username, followers.follower, users.username AS name, users.first_name, users.last_name, users.profile_picture 
                         FROM followers LEFT JOIN users ON followers.username = users.username 
                         WHERE followers.follower LIKE ?;

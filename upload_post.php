@@ -1,14 +1,6 @@
 <?php
     session_start();
-    try {
-      $conn = new PDO("mysql:hosto ex=localhost;dbname=photo_sharing_app", 'root', '');
-      // set the PDO error mode tception
-      $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-      echo "Connected successfully<br>";
-      
-    } catch(PDOException $e) {
-      echo "Connection failed: " . $e->getMessage();
-    }
+    require("connect_db.php");
     $array = array();
     $message = $_POST['description'];
     var_dump($_FILES);

@@ -19,12 +19,7 @@
     <?php
       session_start();
       if(isset($_POST['new_comment'])){
-        try {
-          $conn = new PDO("mysql:host=localhost;dbname=photo_sharing_app", 'root', '');
-          $conn->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-        } catch(PDOException $e) {
-          echo "Connection failed: " . $e->getMessage();
-        }
+        require("connect_db.php");
         $sql = "UPDATE post_comments
                 SET comment = ?
                 WHERE comment_id = ?";
