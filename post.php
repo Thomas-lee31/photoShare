@@ -63,12 +63,14 @@
       <div class="bg-white px-3 pt-3 pb-1 d-flex justify-content-start align-items-center">
 <?php if(!$liked): ?>
         <form method="post" action="./like.php">
+          <input type="hidden" name="post_user" value="<?php echo $post_user; ?>">
           <input type="hidden" name="from" value="<?php echo $from; ?>">
           <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
           <input type="submit" class="bg-white rounded-pill" name="like" value="Like">
         </form>
 <?php else: ?>
         <form method="post" action="./unlike.php">
+          <input type="hidden" name="post_user" value="<?php echo $post_user; ?>">
           <input type="hidden" name="from" value="<?php echo $from; ?>">
           <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
           <input type="submit" class="bg-white rounded-pill" value="Unlike">
@@ -119,7 +121,7 @@
                 <h5 class="modal-title" id="exampleModalCenterTitle">Comments</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
               </div>
-              <div class="modal-body">';
+              <div class="modal-body">
 <?php foreach($comments as $c):
   $comment_user = $c['username'];
   $comment_profile = $c['profile_picture'];
@@ -137,10 +139,9 @@
                     <img src="<?php echo $comment_profile; ?>" style="width: 30px" class="rounded-3 border me-2">
                   </div>
                   <div>
-                    <b><?php echo $comment_user; ?></b><br>'
+                    <b><?php echo $comment_user; ?></b><br>
                     <?php echo $comment; ?>
-                  '</div>'; 
-  ?>
+                  </div>
   <?php if($comment_user == $_SESSION['username']): ?>
                   <div class="d-flex align-items-center">
                     <form method="post" action="./delete_comment.php">
@@ -171,7 +172,8 @@
       <div class="bg-white px-3 py-2 d-flex justify-content-start align-items-center">
         <form method="post" action="./comment.php" class="w-100">
           <div class="d-flex">
-            <input type="hidden" name="from" value="home">
+            <input type="hidden" name="from" value="<?php echo $from; ?>">
+            <input type="hidden" name="post_user" value="<?php echo $post_user; ?>">
             <input type="hidden" name="post_id" value="<?php echo $post_id; ?>">
             <input type="text" class="form-control border-0 me-2" id="floatingInput" placeholder="Add a comment..." name="comment" required>
             <button type="submit" class="btn btn-outline-primary">Post</button>

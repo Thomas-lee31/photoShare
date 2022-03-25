@@ -25,8 +25,8 @@
     exit();
   }
   else{
-    $username = $_POST['from'];
-    header("Location: ./user.php?username=$username#post$post_id");
+    $post_user = $_POST['post_user'];
+    header("Location: ./user.php?username=$post_user#post$post_id");
     exit();
   }
 ?>

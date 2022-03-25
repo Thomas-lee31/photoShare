@@ -42,6 +42,8 @@
     $stmt->bindParam(1, $username);
     $stmt->execute();
     $profile_picture = "";
+    $first_name = "";
+    $last_name = "";
     while($row = $stmt->fetch()){
       $first_name = $row['first_name'];
       $last_name = $row['last_name'];
