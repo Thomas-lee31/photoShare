@@ -18,11 +18,15 @@
 
 <body class="bg-light">
   <?php require('nav.php'); ?>
+  
   <div class="container">
     <div class="row">
     <div class="col-8">
     <?php
-
+      if(!isset($_SESSION['username'])){
+        header("Location: ./welcome.php");
+        exit();
+      }
       require("connect_db.php");
       $username = $_SESSION['username'];
 

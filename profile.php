@@ -153,7 +153,7 @@
                               </div>
                             </div>
                           </div>
-                        </a>';
+                        </a>
                       <?php endwhile; ?>
                     </div>
                   </div>
@@ -176,11 +176,11 @@
                         require("connect_db.php");
                         $sql = "SELECT followers.username, followers.follower, users.username AS name, users.first_name, users.last_name, users.profile_picture 
                         FROM followers LEFT JOIN users ON followers.username = users.username 
-                        WHERE followers.follower LIKE ?;
-                        ";
+                        WHERE followers.follower LIKE ?";
                         $stmt = $conn->prepare($sql);
                         $stmt->bindParam(1, $username);
                         $stmt->execute();
+                        
                         while ($row = $stmt->fetch()) {
                           $user = $row['username'];
                           $first_name = $row['first_name'];
